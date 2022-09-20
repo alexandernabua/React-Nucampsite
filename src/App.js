@@ -1,6 +1,4 @@
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { Routes, Route } from 'react-router-dom';
 import ContactPage from './pages/ContactPage';
 import HomePage from './pages/HomePage';
 import Header from './components/Header';
@@ -12,6 +10,8 @@ import { fetchCampsites } from './features/campsites/campsitesSlice';
 import { fetchPartners } from './features/partners/partnersSlice';
 import { fetchPromotions } from './features/promotions/promotionsSlice';
 import { fetchComments } from './features/comments/commentsSlice';
+import { useDispatch } from 'react-redux';
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
 
 function App() {
