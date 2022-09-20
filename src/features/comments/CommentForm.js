@@ -3,11 +3,13 @@ import { Button, Modal, ModalHeader, ModalBody, FormGroup, Label } from 'reactst
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import { validateCommentForm } from '../../utils/validateCommentForm';
 import { useDispatch } from 'react-redux';
-import { addComment } from './commentsSlice';
+import { postComment } from './commentsSlice';
 
 const CommentForm = ({ campsiteId }) => {
     const [modalOpen, setModalOpen] = useState(false);
+
     const dispatch = useDispatch();
+
     const handleSubmit = (values) => {
         const comment = {
             campsiteId: parseInt(campsiteId),
@@ -17,9 +19,9 @@ const CommentForm = ({ campsiteId }) => {
             date: new Date(Date.now()).toISOString()
         };
         console.log('comment:', comment);
-        dispatch(addComment(comment));
+        dispatch(postComment(comment));
         setModalOpen(false);
-    }
+    };
 
     return (
         <>
@@ -27,7 +29,7 @@ const CommentForm = ({ campsiteId }) => {
                 <i className='fa fa-pencil fa-lg' /> Add Comment
             </Button>
             <Modal isOpen={modalOpen}>
-                <ModalHeader toggle={() => setModalOpen(false)}> 
+                <ModalHeader toggle={() => setModalOpen(false)}>
                     Add Comment
                 </ModalHeader>
                 <ModalBody>
@@ -35,14 +37,14 @@ const CommentForm = ({ campsiteId }) => {
                         initialValues={{
                             rating: undefined,
                             author: '',
-                            commentText: '',
+                            commentText: ''
                         }}
                         onSubmit={handleSubmit}
                         validate={validateCommentForm}
                     >
                         <Form>
                             <FormGroup>
-                                <Label html='rating'>Rating</Label>
+                                <Label htmlFor='rating'>Rating</Label>
                                 <Field
                                     name='rating'
                                     as='select'
@@ -60,7 +62,7 @@ const CommentForm = ({ campsiteId }) => {
                                 </ErrorMessage>
                             </FormGroup>
                             <FormGroup>
-                                <Label html='author'>Your Name</Label>
+                                <Label htmlFor='author'>Your Name</Label>
                                 <Field
                                     name='author'
                                     placeholder='Your Name'
@@ -71,7 +73,7 @@ const CommentForm = ({ campsiteId }) => {
                                 </ErrorMessage>
                             </FormGroup>
                             <FormGroup>
-                                <Label html='commentText'>Comment</Label>
+                                <Label htmlFor='commentText'>Comment</Label>
                                 <Field
                                     name='commentText'
                                     as='textarea'
@@ -87,9 +89,7 @@ const CommentForm = ({ campsiteId }) => {
                 </ModalBody>
             </Modal>
         </>
-    
-    )
-}
-
+    );
+};
 
 export default CommentForm;
